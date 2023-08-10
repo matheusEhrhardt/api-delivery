@@ -1,8 +1,16 @@
 package com.m4technology.m4foodapi.domain.exception;
 
-public class EntidadeNaoEncontradaException extends RuntimeException{
+import com.m4technology.m4foodapi.domain.enums.ExceptionEnum;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public EntidadeNaoEncontradaException(String mensagem){
-        super(mensagem);
+@ResponseStatus(value = HttpStatus.NOT_FOUND)//, reason = "Entidade não encontrada")
+public class EntidadeNaoEncontradaException extends RuntimeException {
+
+    public EntidadeNaoEncontradaException() {
+        super(ExceptionEnum.REGISTRO_NAO_ENCONTRADO.getDescricao());
+    }
+    public EntidadeNaoEncontradaException(String message) {
+        super(message);
     }
 }

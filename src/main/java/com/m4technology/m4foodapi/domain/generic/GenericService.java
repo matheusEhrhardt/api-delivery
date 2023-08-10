@@ -2,6 +2,7 @@ package com.m4technology.m4foodapi.domain.generic;
 
 import com.m4technology.m4foodapi.domain.exception.EntidadeEmUsoExeption;
 import com.m4technology.m4foodapi.domain.exception.EntidadeNaoEncontradaException;
+import com.m4technology.m4foodapi.domain.exception.NegocioException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class GenericService<T extends JpaRepository, E>{
-
-
+    
     @Autowired
     protected T repository;
 
@@ -21,40 +21,39 @@ public class GenericService<T extends JpaRepository, E>{
         return repository.findAll();
     }
 
-    public Optional<E> buscarPorId(Long id){
+    public E buscarPorId(Long id) {
         Optional<E> model = repository.findById(id);
-
         if (model.isEmpty()){
-            throw new EntidadeNaoEncontradaException(String.format("Não existe registro com identificador %d", id));
+            throw new EntidadeNaoEncontradaException();
         }
-
-        return model;
+        return model.get();
     }
 
     public E salvar(E model){
-        return (E) repository.save(model);
+        try {
+            return (E) repository.save(model);
+        } catch (NegocioException e){
+            throw new NegocioException();
+        }
     }
 
-    public Optional<E> salvar(E model, Long id){
-        Optional<E> modelExistente = buscarPorId(id);
-
-        if (modelExistente.isEmpty()){
-            throw new EntidadeNaoEncontradaException(String.format("Não existe registro com identificador %d", id));
-        }
-
+    public E salvar(E model, Long id){
+        E modelExistente = buscarPorId(id);
         BeanUtils.copyProperties(model,modelExistente, "id");
-        return (Optional<E>) repository.save(model);
+        try {
+            return (E) repository.save(model);
+        } catch (NegocioException e){
+            throw new NegocioException();
+        }
     }
 
     public void excluir(Long id){
         try {
             repository.deleteById(id);
-
         } catch (EmptyResultDataAccessException e){
-            throw new EntidadeNaoEncontradaException(String.format("Não existe registro com identificador %d", id));
+            throw new EntidadeNaoEncontradaException();
         } catch (DataIntegrityViolationException e){
-            throw new EntidadeEmUsoExeption(
-                    String.format("O registro com identificador %d não pode ser removido, pois está em uso", id));
+            throw new EntidadeEmUsoExeption();
         }
     }
 }

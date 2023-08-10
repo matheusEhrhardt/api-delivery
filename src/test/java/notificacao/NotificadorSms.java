@@ -1,6 +1,6 @@
 package notificacao;
 
-import com.m4technology.m4foodapi.domain.enumns.NivelUrgenciaEnum;
+import com.m4technology.m4foodapi.domain.enums.NivelUrgenciaEnum;
 import com.m4technology.m4foodapi.domain.model.Cliente;
 import org.springframework.stereotype.Component;
 

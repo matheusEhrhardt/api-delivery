@@ -9,6 +9,8 @@ import lombok.Data;
 public class Permissao {
     @Id
     private Long id;
+
     private String nome;
+
     private String descricao;
 }

@@ -1,6 +1,6 @@
 package notificacao;
 
-import com.m4technology.m4foodapi.domain.enumns.NivelUrgenciaEnum;
+import com.m4technology.m4foodapi.domain.enums.NivelUrgenciaEnum;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.lang.annotation.Retention;
