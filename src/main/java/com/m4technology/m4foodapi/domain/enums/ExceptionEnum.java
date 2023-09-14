@@ -1,23 +1,21 @@
 package com.m4technology.m4foodapi.domain.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum ExceptionEnum {
-    REGISTRO_NAO_ENCONTRADO("Não existe registro com o identificador informado"),
-    ENTIDADE_ESTA_EM_USO("O registro não pode ser removido, pois está em uso"),
-    ERRO_AO_PERSISTIR_OS_DADOS("Ocorreu um erro ao tentar persistir os dados"),
-    ERRO("Ocorreu um erro ao realizar a operação");
+    REGISTRO_NAO_ENCONTRADO("/entidade-nao-encontrada","Não existe registro com o identificador informado"),
+    ENTIDADE_ESTA_EM_USO("/entidade-em-uso","O registro não pode ser removido, pois está em uso"),
+    ERRO_AO_PERSISTIR_OS_DADOS("/erro-ao-persistir","Ocorreu um erro ao tentar persistir os dados"),
+    MENSAGEM_INCOMPREENSIVEL("/mensagem-incompreensivel","Mensagem incompreensível"),
+    ERRO("/error","Ocorreu um erro ao realizar a operação");
 
-    private final String descricao;
+    private String descricao;
+    private String uri;
 
-    ExceptionEnum(String descricao) {
+    ExceptionEnum(String uri,String descricao) {
+        this.uri = "Https://m4technology.com" + uri;
         this.descricao = descricao;
-    }
-    
-    public String getValue() {
-        return name();
-    }
-    
-    public String getDescricao() {
-        return descricao;
     }
 
 }
