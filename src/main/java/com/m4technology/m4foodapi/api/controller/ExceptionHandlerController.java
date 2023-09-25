@@ -5,24 +5,30 @@ import com.m4technology.m4foodapi.domain.enums.ExceptionEnum;
 import com.m4technology.m4foodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.m4technology.m4foodapi.domain.model.ErrorMessage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.parsing.Problem;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ControllerAdvice
 public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 
+    @Autowired
+    private MessageSource messageSource;
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-//        ErrorMessage body = ErrorMessage.builder()
-//                .title(ExceptionEnum.MENSAGEM_INCOMPREENSIVEL.getDescricao())
-//                .type(ExceptionEnum.MENSAGEM_INCOMPREENSIVEL.getUri())
-//                .detail("O corpo da requisição está inválido.")
-//                .build();
 
         Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
@@ -68,5 +74,31 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
         }
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+        BindingResult bindingResult = ex.getBindingResult();
+
+        List<ErrorMessage.Field> fields = bindingResult.getFieldErrors()
+                .stream()
+                .map(fieldError -> {
+                    String message = messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+                    return ErrorMessage.Field
+                        .builder()
+                        .name(fieldError.getField())
+                        .userMessage(message).build();})
+                .collect(Collectors.toList());
+
+        ErrorMessage body = ErrorMessage.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .title(ExceptionEnum.DADOS_INVALIDOS.getDescricao())
+                .type(ExceptionEnum.DADOS_INVALIDOS.getUri())
+                .detail(ExceptionEnum.DADOS_INVALIDOS.getDescricao())
+                .fields(fields)
+                .build();
+
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }

@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Builder
@@ -14,5 +17,12 @@ public class ErrorMessage {
     private String type;
     private String title;
     private String detail;
+    private List<Field> fields;
 
+    @Getter
+    @Builder
+    public static class Field {
+        private String name;
+        private String userMessage;
+    }
 }

@@ -1,9 +1,8 @@
 package com.m4technology.m4foodapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,7 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 public class Cozinha {
     @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String nome;
 
     @JsonIgnore

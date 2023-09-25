@@ -1,5 +1,6 @@
 package com.m4technology.m4foodapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.m4technology.m4foodapi.domain.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +14,8 @@ import java.util.List;
 public class Pedido {
 
     @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private BigDecimal subTotal;

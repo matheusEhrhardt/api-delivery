@@ -1,5 +1,6 @@
 package com.m4technology.m4foodapi.domain.generic;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,13 @@ public class GenericController<T extends GenericService, E>{
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public E cadastrar(@RequestBody E model){
+    public E cadastrar(@RequestBody @Valid E model){
         return (E) service.salvar(model);
 
     }
 
     @PutMapping("/{id}")
-    public E editar(@RequestBody E model, @PathVariable Long id){
+    public E editar(@RequestBody @Valid E model, @PathVariable Long id){
         return (E) service.salvar(model,id);
     }
 
