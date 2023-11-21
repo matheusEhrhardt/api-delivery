@@ -2,6 +2,7 @@ package com.m4technology.m4foodapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.m4technology.m4foodapi.domain.enums.LogicoEnum;
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -16,11 +17,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Restaurante {
-    @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Restaurante extends GenericModel {
 
     @NotBlank
     private String nome;

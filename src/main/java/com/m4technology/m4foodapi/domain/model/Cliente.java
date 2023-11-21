@@ -1,9 +1,10 @@
 package com.m4technology.m4foodapi.domain.model;
 
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import lombok.Data;
 
 @Data
-public class Cliente {
+public class Cliente extends GenericModel{
 
     private String nome;
 

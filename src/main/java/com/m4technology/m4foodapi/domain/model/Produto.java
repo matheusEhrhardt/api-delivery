@@ -1,5 +1,6 @@
 package com.m4technology.m4foodapi.domain.model;
 
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,10 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Produto extends GenericModel {
 
     private String nome;
 

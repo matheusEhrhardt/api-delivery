@@ -1,6 +1,7 @@
 package com.m4technology.m4foodapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Endereco {
+public class Endereco extends GenericModel {
 
     @Id
     @JsonIgnore

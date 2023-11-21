@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public class GenericController<T extends GenericService, E>{
+public class GenericController<T extends GenericService, E extends GenericModel>{
 
     @Autowired
     protected T service;
+
+    protected E model = (E) new GenericModel();
 
     @GetMapping
     public List<E> buscar(){

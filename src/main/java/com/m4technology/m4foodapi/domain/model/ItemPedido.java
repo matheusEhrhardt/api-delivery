@@ -1,6 +1,7 @@
 package com.m4technology.m4foodapi.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,11 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class ItemPedido {
-    @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ItemPedido extends GenericModel {
 
     private Integer quantidade;
 

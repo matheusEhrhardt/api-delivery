@@ -1,5 +1,6 @@
 package com.m4technology.m4foodapi.domain.model;
 
+import com.m4technology.m4foodapi.domain.generic.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,10 +11,8 @@ import lombok.Data;
 import java.util.Date;
 @Data
 @Entity
-public class Usuario {
+public class Usuario extends GenericModel {
 
-    @Id
-    private Long id;
     @NotBlank
     private String nome;
     @NotBlank
