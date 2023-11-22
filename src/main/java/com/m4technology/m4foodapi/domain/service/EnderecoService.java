@@ -7,4 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EnderecoService extends GenericService<EnderecoRepository, Endereco> {
+    public EnderecoService() {
+        super(new Endereco());
+    }
 }

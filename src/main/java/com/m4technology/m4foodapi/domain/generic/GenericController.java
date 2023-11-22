@@ -6,14 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class GenericController<T extends GenericService, E extends GenericModel>{
+public class GenericController<T extends GenericService, E>{
 
     @Autowired
     protected T service;
-
-    protected E model = (E) new GenericModel();
 
     @GetMapping
     public List<E> buscar(){
@@ -44,8 +43,8 @@ public class GenericController<T extends GenericService, E extends GenericModel>
     }
 
     @GetMapping("/BuscarPorParametro")
-    public ResponseEntity<List<E>> buscarPorParametro(@RequestParam(required = false) String parametro){
-        return null;
+    public List<E> buscarPorParametro(@RequestParam HashMap<String,Object> parametros){
+        return service.buscarPorParametros(parametros);
     }
 }
 

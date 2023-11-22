@@ -7,4 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FormaPagamentoService extends GenericService<FormaPagamentoRepository, FormaPagamento> {
+    public FormaPagamentoService() {
+        super(new FormaPagamento());
+    }
 }

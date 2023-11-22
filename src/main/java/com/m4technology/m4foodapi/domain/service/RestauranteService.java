@@ -9,4 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RestauranteService extends GenericService<RestauranteRepository, Restaurante> {
 
+    public RestauranteService() {
+        super(new Restaurante());
+    }
 }

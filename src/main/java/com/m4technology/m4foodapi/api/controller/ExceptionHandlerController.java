@@ -49,7 +49,7 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ResponseEntity<?> handleEntidadeNãoEncontradaException(EntidadeNaoEncontradaException ex,WebRequest request){
+    public ResponseEntity<?> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex,WebRequest request){
 
         ErrorMessage body = ErrorMessage.builder()
                 .status(HttpStatus.NOT_FOUND.value())
