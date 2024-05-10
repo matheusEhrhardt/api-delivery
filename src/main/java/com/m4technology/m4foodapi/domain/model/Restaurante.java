@@ -10,6 +10,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,11 +30,11 @@ public class Restaurante {
     @Column(name = "taxa_frete")
     private Double taxaFrete;
     @Column(name = "data_cadastro")
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
     @JsonIgnore
     @CreationTimestamp
     @Column(name = "data_atualizacao")
-    private Date dataAtualizacao;
+    private LocalDate dataAtualizacao;
     @Valid
     @NotNull
     @ManyToOne

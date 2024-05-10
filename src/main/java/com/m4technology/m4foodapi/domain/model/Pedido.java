@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,10 +18,10 @@ public class Pedido {
     private BigDecimal subTotal;
     private BigDecimal taxaFrete;
     private BigDecimal valorTotal;
-    private Date dataCriacao;
-    private Date dataConfirmacao;
-    private Date dataCancelamento;
-    private Date dataEntrega;
+    private LocalDate dataCriacao;
+    private LocalDate dataConfirmacao;
+    private LocalDate dataCancelamento;
+    private LocalDate dataEntrega;
     @OneToMany
     private List<ItemPedido> itensPedidos;
     @Column(name = "status_pedido")
